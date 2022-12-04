@@ -11,16 +11,13 @@ img.src = walk;
 
 
 function update(progress:number) {
-
-  /*img.onload = () => */
-  myContext?.drawImage(newCharacter.spritesheet, newCharacter.x, newCharacter.y, newCharacter.width, newCharacter.height
-  );
-  newCharacter.updateSomeValues(progress)
-
-  // Update the state of the world for the elapsed time since last render
+  newCharacter.draw()
+  newCharacter.update()
+  
 }
 
 function draw() {
+ 
   // Draw the state of the world
 }
 
@@ -32,6 +29,8 @@ function loop(timestamp: number) {
 
   lastRender = timestamp
   window.requestAnimationFrame(loop)
+  
+  console.log(newCharacter.frameIndex)
 }
 let lastRender = 0
 window.requestAnimationFrame(loop)
@@ -67,24 +66,44 @@ class Character implements CharacterInterface {
     this.numberOfFrames = numberOfFrames
   }
 
+  lastUpdate = Date.now();
+
+    //to update
+  update() {
+        if(Date.now() - this.lastUpdate >= this.timePerFrame) {
+            this.frameIndex++;
+            if(this.frameIndex >= this.numberOfFrames) {
+                this.frameIndex = 0;
+            }
+            this.lastUpdate = Date.now();
+        }
+        // myContext?.clearRect(0,0,canvas.width, canvas.height);
+    }
+
+
+  draw() {
+    myContext?.drawImage(this.spritesheet,
+    this.frameIndex*this.width/this.numberOfFrames,
+    0,
+    this.width/this.numberOfFrames,
+    this.height,
+    this.x,
+    this.y,
+    this.width/this.numberOfFrames,
+    this.height);
+   
+  }
   changePosition(){
     myContext?.clearRect(0,0,canvas.width, canvas.height);
     this.x +=1
   }
 
-  updateSomeValues(update:number){
-    if(update >= this.timePerFrame) {
-      this.frameIndex++;
-      if(this.frameIndex >= this.numberOfFrames) {
-        this.frameIndex = 0;
-      }
-    }
-  }
+  
 
 }
 
 
-const newCharacter = new Character(img, -42, 0, 1000, 100, 90, 6)
+const newCharacter = new Character(img, 30, 0, 960, 80, 90, 8)
 
 canvas.addEventListener('click', () => {
   newCharacter.changePosition()
