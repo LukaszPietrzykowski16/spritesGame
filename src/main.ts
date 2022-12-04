@@ -7,11 +7,15 @@ const myContext = canvas.getContext('2d');
 const img = new Image();        
 img.src = walk;    
 
-img.onload = () => myContext?.drawImage(img, 0, 0);
 
-/*
+
+
 function update(progress:number) {
- 
+
+  /*img.onload = () => */
+  myContext?.drawImage(newCharacter.spritesheet, newCharacter.x, newCharacter.y, newCharacter.width, newCharacter.height
+  );
+  newCharacter.updateSomeValues(progress)
 
   // Update the state of the world for the elapsed time since last render
 }
@@ -21,7 +25,7 @@ function draw() {
 }
 
 function loop(timestamp: number) {
-  var progress = timestamp - lastRender
+  let progress = timestamp - lastRender
  
   update(progress)
   draw()
@@ -31,9 +35,9 @@ function loop(timestamp: number) {
 }
 let lastRender = 0
 window.requestAnimationFrame(loop)
-*/
+
 interface CharacterInterface {
-  spritesheet: string;
+  spritesheet: HTMLImageElement;
   x: number;
   y: number;
   width: number;
@@ -43,7 +47,7 @@ interface CharacterInterface {
 
 class Character implements CharacterInterface {
 
-  spritesheet: string;
+  spritesheet: HTMLImageElement;
   x: number;
   y: number;
   width: number;
@@ -51,8 +55,9 @@ class Character implements CharacterInterface {
   timePerFrame: number;
   numberOfFrames: number;
   
+  frameIndex = 0;
 
-  constructor(spritesheet: string, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
+  constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
     this.spritesheet = spritesheet;
     this.x = x;
     this.y = y;
@@ -62,9 +67,25 @@ class Character implements CharacterInterface {
     this.numberOfFrames = numberOfFrames
   }
 
+  changePosition(){
+    myContext?.clearRect(0,0,canvas.width, canvas.height);
+    this.x +=1
+  }
+
+  updateSomeValues(update:number){
+    if(update >= this.timePerFrame) {
+      this.frameIndex++;
+      if(this.frameIndex >= this.numberOfFrames) {
+        this.frameIndex = 0;
+      }
+    }
+  }
 
 }
 
 
-const newDeveloper = new Character('tet', 0, 0, 250, 250, 3, 5)
-console.log(newDeveloper)
+const newCharacter = new Character(img, -42, 0, 1000, 100, 90, 6)
+
+canvas.addEventListener('click', () => {
+  newCharacter.changePosition()
+})
