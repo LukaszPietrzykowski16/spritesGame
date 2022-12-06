@@ -10,9 +10,10 @@ img.src = walk;
 
 
 
-function update(progress:number) {
+function update() {
   newCharacter.draw()
-  newCharacter.update()
+  // only if we want to play animation of moving
+  // newCharacter.update()
   
 }
 
@@ -20,19 +21,17 @@ function draw() {
  
   // Draw the state of the world
 }
-
+// make game loop better or something??
 function loop(timestamp: number) {
-  let progress = timestamp - lastRender
- 
-  update(progress)
+  update()
   draw()
 
-  lastRender = timestamp
+  
   window.requestAnimationFrame(loop)
   
-  console.log(newCharacter.frameIndex)
+
 }
-let lastRender = 0
+
 window.requestAnimationFrame(loop)
 
 interface CharacterInterface {
@@ -66,18 +65,20 @@ class Character implements CharacterInterface {
     this.numberOfFrames = numberOfFrames
   }
 
+  // we can do this in better way? 
   lastUpdate = Date.now();
 
     //to update
   update() {
         if(Date.now() - this.lastUpdate >= this.timePerFrame) {
+          myContext?.clearRect(0,0,canvas.width, canvas.height);
             this.frameIndex++;
             if(this.frameIndex >= this.numberOfFrames) {
                 this.frameIndex = 0;
             }
             this.lastUpdate = Date.now();
         }
-        // myContext?.clearRect(0,0,canvas.width, canvas.height);
+        
     }
 
 
@@ -93,9 +94,14 @@ class Character implements CharacterInterface {
     this.height);
    
   }
-  changePosition(){
+  changePosition(value: number){
     myContext?.clearRect(0,0,canvas.width, canvas.height);
-    this.x +=1
+    if(value === 1){
+      this.x++
+    } else {
+      this.x--
+    }
+   
   }
 
   
@@ -103,8 +109,20 @@ class Character implements CharacterInterface {
 }
 
 
-const newCharacter = new Character(img, 30, 0, 960, 80, 90, 8)
+const newCharacter = new Character(img, 0, 0, 960, 80, 90, 8)
 
-canvas.addEventListener('click', () => {
-  newCharacter.changePosition()
-})
+
+
+document.addEventListener('keydown', (event) => {
+  if(event.code === 'ArrowRight'){
+    newCharacter.update()
+    newCharacter.changePosition(1)
+  }
+  if(event.code === 'ArrowLeft'){
+    newCharacter.update()
+    newCharacter.changePosition(-1)
+  }
+
+  // Alert the key name and key code on keydown
+  
+}, false);
