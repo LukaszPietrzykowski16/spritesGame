@@ -1,12 +1,16 @@
 import './style.css'
 import walk from './walk.png'
+import walkBackwards from './walk_backwards.png'
 
 const canvas = document.getElementById('responsive-canvas') as HTMLCanvasElement;
 const myContext = canvas.getContext('2d');
 
-const img = new Image();        
-img.src = walk;    
 
+const imgRight = new Image();        
+imgRight.src = walk;    
+
+const imgLeft = new Image();        
+imgLeft.src = walkBackwards;   
 
 
 
@@ -52,8 +56,9 @@ class Character implements CharacterInterface {
   height: number;
   timePerFrame: number;
   numberOfFrames: number;
+
   
-  frameIndex = 0;
+  frameIndex:number = 0;
 
   constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
     this.spritesheet = spritesheet;
@@ -71,7 +76,7 @@ class Character implements CharacterInterface {
     //to update
   update() {
         if(Date.now() - this.lastUpdate >= this.timePerFrame) {
-          myContext?.clearRect(0,0,canvas.width, canvas.height);
+          this.cleaningUpCanvas()
             this.frameIndex++;
             if(this.frameIndex >= this.numberOfFrames) {
                 this.frameIndex = 0;
@@ -95,21 +100,26 @@ class Character implements CharacterInterface {
    
   }
   changePosition(value: number){
-    myContext?.clearRect(0,0,canvas.width, canvas.height);
+    this.cleaningUpCanvas()
     if(value === 1){
       this.x++
+      this.spritesheet = imgRight
     } else {
       this.x--
+      this.spritesheet = imgLeft
     }
    
   }
 
-  
+
+  cleaningUpCanvas(){
+    myContext?.clearRect(0,0,canvas.width, canvas.height);
+  }
 
 }
 
 
-const newCharacter = new Character(img, 0, 0, 960, 80, 90, 8)
+const newCharacter = new Character(imgRight, 0, 0, 960, 80, 90, 8)
 
 
 
