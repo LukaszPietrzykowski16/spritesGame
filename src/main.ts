@@ -1,6 +1,6 @@
 import './style.css'
-import walk from './walk.png'
-import walkBackwards from './walk_backwards.png'
+import walk from './sprites/walk.png'
+import walkBackwards from './sprites/walk_backwards.png'
 
 const canvas = document.getElementById('responsive-canvas') as HTMLCanvasElement;
 const myContext = canvas.getContext('2d');
@@ -16,8 +16,6 @@ imgLeft.src = walkBackwards;
 
 function update() {
   newCharacter.draw()
-  // only if we want to play animation of moving
-  // newCharacter.update()
   
 }
 
@@ -26,7 +24,7 @@ function draw() {
   // Draw the state of the world
 }
 // make game loop better or something??
-function loop(timestamp: number) {
+function loop() {
   update()
   draw()
 
@@ -99,9 +97,9 @@ class Character implements CharacterInterface {
     this.height);
    
   }
-  changePosition(value: number){
+  changePosition(value: boolean){
     this.cleaningUpCanvas()
-    if(value === 1){
+    if(value === true){
       this.x++
       this.spritesheet = imgRight
     } else {
@@ -111,6 +109,27 @@ class Character implements CharacterInterface {
    
   }
 
+  jumpValue = 0
+
+  jump(){
+    // i don't know if this is a good aproach with setinterval 
+    this.cleaningUpCanvas()
+    const jumpInterval = setInterval(() => {
+      this.jumpValue++
+      this.y--
+      this.jump()
+      if(this.jumpValue > 4){
+        clearInterval(jumpInterval);
+      }
+    }, 50)
+    if(this.jumpValue < 4){
+      jumpInterval
+    } else {
+      clearInterval(jumpInterval);
+    }
+    
+    
+  }
 
   cleaningUpCanvas(){
     myContext?.clearRect(0,0,canvas.width, canvas.height);
@@ -124,15 +143,18 @@ const newCharacter = new Character(imgRight, 0, 0, 960, 80, 90, 8)
 
 
 document.addEventListener('keydown', (event) => {
+
   if(event.code === 'ArrowRight'){
     newCharacter.update()
-    newCharacter.changePosition(1)
+    newCharacter.changePosition(true)
   }
   if(event.code === 'ArrowLeft'){
     newCharacter.update()
-    newCharacter.changePosition(-1)
+    newCharacter.changePosition(false)
   }
-
+  if(event.code === 'ArrowUp'){
+    newCharacter.jump()
+  }
   // Alert the key name and key code on keydown
   
 }, false);
