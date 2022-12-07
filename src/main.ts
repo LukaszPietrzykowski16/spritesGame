@@ -55,7 +55,9 @@ class Character implements CharacterInterface {
   timePerFrame: number;
   numberOfFrames: number;
 
-  
+  JUMP_HEIGHT:number = 16
+  JUMP_SPEED:number = 50
+
   frameIndex:number = 0;
 
   constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
@@ -118,17 +120,38 @@ class Character implements CharacterInterface {
       this.jumpValue++
       this.y--
       this.jump()
-      if(this.jumpValue > 4){
+      if(this.jumpValue > this.JUMP_HEIGHT){
         clearInterval(jumpInterval);
       }
-    }, 50)
-    if(this.jumpValue < 4){
+      clearInterval(jumpInterval)
+    }, this.JUMP_SPEED)
+    if(this.jumpValue < this.JUMP_HEIGHT){
       jumpInterval
     } else {
       clearInterval(jumpInterval);
+      this.jumpValue = 0
+      this.jumpFalling()
     }
     
-    
+  }
+
+  jumpFalling(){
+    this.cleaningUpCanvas()
+    const jumpInterval = setInterval(() => {
+      this.jumpValue++
+      this.y++
+      this.jumpFalling()
+      if(this.jumpValue > this.JUMP_HEIGHT){
+        clearInterval(jumpInterval);
+      }
+      clearInterval(jumpInterval)
+    }, this.JUMP_SPEED)
+    if(this.jumpValue < this.JUMP_HEIGHT){
+      jumpInterval
+    } else {
+      clearInterval(jumpInterval);
+      this.jumpValue = 0
+    }
   }
 
   cleaningUpCanvas(){
