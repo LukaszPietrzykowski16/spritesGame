@@ -100,6 +100,7 @@ export class Character implements CharacterInterface {
     jumpValue = 0
   
     jump(){
+        this.spritesheet = imgJump
       // i don't know if this is a good aproach with setinterval 
       this.cleaningUpCanvas()
       const jumpInterval = setInterval(() => {
@@ -122,6 +123,7 @@ export class Character implements CharacterInterface {
     }
   
     jumpFalling(){
+      this.spritesheet = imgFall
       this.cleaningUpCanvas()
       const jumpInterval = setInterval(() => {
         this.jumpValue++
@@ -135,8 +137,11 @@ export class Character implements CharacterInterface {
       if(this.jumpValue < this.JUMP_HEIGHT){
         jumpInterval
       } else {
+        // reset to normal state
         clearInterval(jumpInterval);
         this.jumpValue = 0
+        this.spritesheet = imgRight
+
       }
     }
   

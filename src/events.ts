@@ -13,6 +13,7 @@ export function events(){
           newCharacter.changePosition(false)
         }
         if(event.code === 'ArrowUp'){
+          newCharacter.update()
           newCharacter.jump()
         }
         // Alert the key name and key code on keydown
