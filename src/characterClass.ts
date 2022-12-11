@@ -51,7 +51,7 @@ export class Character implements CharacterInterface {
   
     private frameIndex:number = 0;
 
-    private _value: boolean = true;
+    private orientation: boolean = true;
   
     constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
       this.spritesheet = spritesheet;
@@ -64,7 +64,7 @@ export class Character implements CharacterInterface {
     }
   
     set setValue(setter: boolean){
-      this._value = setter
+      this.orientation = setter
     }
 
     // we can do this in better way? 
@@ -97,22 +97,40 @@ export class Character implements CharacterInterface {
      
     }
     changePosition(){
-      console.log(this._value)
       this.cleaningUpCanvas()
-      if(this._value === true){
-        this.x++
-        this.spritesheet = imgRight
+      if(this.jumpValue === 0){
+        if(this.orientation === true){
+          this.x++
+          this.spritesheet = imgRight
+        } else {
+          this.x--
+          this.spritesheet = imgLeft
+        }
       } else {
-        this.x--
-        this.spritesheet = imgLeft
+        if(this.orientation === true){
+          this.x++
+        } else {
+          this.x--
+        }
       }
+     
      
     }
   
     private jumpValue:number = 0
+
+    get getJumpValue() {
+      return this.jumpValue
+    }
   
+
     jump(){
-        this.spritesheet = imgJump
+      // landing depends of spirte position
+      if(this.orientation === true){
+          this.spritesheet = imgJump
+        } else {
+          this.spritesheet = imgJumpBackwards
+        }
       // i don't know if this is a good aproach with setinterval 
       this.cleaningUpCanvas()
       const jumpInterval = setInterval(() => {
@@ -135,7 +153,11 @@ export class Character implements CharacterInterface {
     }
   
     jumpFalling(){
-      this.spritesheet = imgFall
+      if(this.orientation === true){
+        this.spritesheet = imgFall
+      } else {
+        this.spritesheet = imgFallBackwards
+      }
       this.cleaningUpCanvas()
       const jumpInterval = setInterval(() => {
         this.jumpValue++
@@ -152,8 +174,11 @@ export class Character implements CharacterInterface {
         // reset to normal state
         clearInterval(jumpInterval);
         this.jumpValue = 0
-        this.spritesheet = imgRight
-
+        if(this.orientation === true){
+          this.spritesheet = imgRight
+        } else {
+          this.spritesheet = imgLeft
+        }
       }
     }
   

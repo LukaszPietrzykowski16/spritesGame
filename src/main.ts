@@ -23,7 +23,7 @@ function loop() {
 window.requestAnimationFrame(loop)
 
 
-const newCharacter = new Character(imgRight, 0, 0, 960, 80, 90, 8)
+const newCharacter = new Character(imgRight, 0, 40, 960, 80, 90, 8)
 
 events()
 
