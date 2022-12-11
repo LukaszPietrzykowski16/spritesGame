@@ -1,8 +1,9 @@
 import walk from './sprites/walk.png'
 import walkBackwards from './sprites/walk_backwards.png'
 import jump from './sprites/jump.png'
+import jumpBackwards from './sprites/jump_backwards.png'
 import fall from './sprites/fall.png'
-
+import fallBackwards  from './sprites/fall_backwards.png'
 
 const canvas = document.getElementById('responsive-canvas') as HTMLCanvasElement;
 const myContext = canvas.getContext('2d');
@@ -16,10 +17,14 @@ imgLeft.src = walkBackwards;
 const imgJump = new Image();        
 imgJump.src = jump;   
 
+const imgJumpBackwards = new Image();        
+imgJumpBackwards.src = jumpBackwards;   
+
 const imgFall = new Image();        
 imgFall.src = fall;   
 
-
+const imgFallBackwards = new Image();        
+imgFallBackwards.src = fallBackwards;   
 
 
 interface CharacterInterface {
@@ -41,10 +46,12 @@ export class Character implements CharacterInterface {
     timePerFrame: number;
     numberOfFrames: number;
   
-    JUMP_HEIGHT:number = 16
-    JUMP_SPEED:number = 50
+    private JUMP_HEIGHT:number = 16
+    private JUMP_SPEED:number = 50
   
-    frameIndex:number = 0;
+    private frameIndex:number = 0;
+
+    private _value: boolean = true;
   
     constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
       this.spritesheet = spritesheet;
@@ -56,6 +63,10 @@ export class Character implements CharacterInterface {
       this.numberOfFrames = numberOfFrames
     }
   
+    set setValue(setter: boolean){
+      this._value = setter
+    }
+
     // we can do this in better way? 
     lastUpdate = Date.now();
   
@@ -85,9 +96,10 @@ export class Character implements CharacterInterface {
       this.height);
      
     }
-    changePosition(value: boolean){
+    changePosition(){
+      console.log(this._value)
       this.cleaningUpCanvas()
-      if(value === true){
+      if(this._value === true){
         this.x++
         this.spritesheet = imgRight
       } else {
@@ -97,7 +109,7 @@ export class Character implements CharacterInterface {
      
     }
   
-    jumpValue = 0
+    private jumpValue:number = 0
   
     jump(){
         this.spritesheet = imgJump
