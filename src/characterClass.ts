@@ -4,6 +4,8 @@ import jump from './sprites/jump.png'
 import jumpBackwards from './sprites/jump_backwards.png'
 import fall from './sprites/fall.png'
 import fallBackwards  from './sprites/fall_backwards.png'
+import attack from './sprites/attack.png'
+import attackBackwards from './sprites/attack_backwards.png'
 
 const canvas = document.getElementById('responsive-canvas') as HTMLCanvasElement;
 const myContext = canvas.getContext('2d');
@@ -25,6 +27,12 @@ imgFall.src = fall;
 
 const imgFallBackwards = new Image();        
 imgFallBackwards.src = fallBackwards;   
+
+const imgAttack = new Image();        
+imgAttack.src = attack;   
+
+const imgAttackBackwards = new Image();        
+imgAttackBackwards.src = attackBackwards;   
 
 
 interface CharacterInterface {
@@ -123,8 +131,39 @@ export class Character implements CharacterInterface {
       return this.jumpValue
     }
   
+    private ATTACK_LENGTH = 16
+    private attackValue:number = 0
+
+    attack(){
+      this.cleaningUpCanvas()
+      if(this.orientation === true){
+        this.spritesheet = imgAttack
+      } else {
+        this.spritesheet = imgAttackBackwards
+      }
+      const attackInterval = setInterval(() => {
+        this.attackValue++ 
+        this.attack()
+        if(this.attackValue > this.ATTACK_LENGTH){
+          clearInterval(attackInterval);
+        }
+        clearInterval(attackInterval);
+      }, 60)
+
+      if(this.attackValue < this.ATTACK_LENGTH){
+        console.log(this.attackValue)
+        attackInterval 
+      } else {
+        clearInterval(attackInterval);
+        this.attackValue = 0
+      }
+      
+
+     
+    }
 
     jump(){
+      this.cleaningUpCanvas()
       // landing depends of spirte position
       if(this.orientation === true){
           this.spritesheet = imgJump

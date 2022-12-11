@@ -21,6 +21,13 @@ export function events(){
           }
          
         }
+        if(event.code === 'KeyZ'){
+          if(newCharacter.getJumpValue === 0){
+            newCharacter.update()
+            newCharacter.attack()
+          }
+         
+        }
         // Alert the key name and key code on keydown
         
       }, false);
