@@ -59,6 +59,10 @@ export class Character implements CharacterInterface {
   
     private frameIndex:number = 0;
 
+    set setFrameIndex(index: number){
+      this.frameIndex = index
+    }
+
     private orientation: boolean = true;
   
     constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
@@ -141,14 +145,16 @@ export class Character implements CharacterInterface {
       } else {
         this.spritesheet = imgAttackBackwards
       }
+      
       const attackInterval = setInterval(() => {
         this.attackValue++ 
+        this.update()
         this.attack()
         if(this.attackValue > this.ATTACK_LENGTH){
           clearInterval(attackInterval);
         }
         clearInterval(attackInterval);
-      }, 60)
+      }, 40)
 
       if(this.attackValue < this.ATTACK_LENGTH){
         console.log(this.attackValue)
@@ -156,6 +162,11 @@ export class Character implements CharacterInterface {
       } else {
         clearInterval(attackInterval);
         this.attackValue = 0
+        if(this.orientation === true){
+          this.spritesheet = imgRight
+        } else {
+          this.spritesheet = imgLeft
+        }
       }
       
 
@@ -188,6 +199,8 @@ export class Character implements CharacterInterface {
         this.jumpValue = 0
         this.jumpFalling()
       }
+
+      
       
     }
   

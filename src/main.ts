@@ -10,6 +10,7 @@ imgRight.src = walk;
 
 function update() {
   newCharacter.draw()
+  newFoe.draw()
 }
 
 
@@ -24,6 +25,7 @@ window.requestAnimationFrame(loop)
 
 
 const newCharacter = new Character(imgRight, 0, 40, 960, 80, 90, 8)
+const newFoe = new Character(imgRight, 50, 40, 960, 80, 90, 8)
 
 events()
 

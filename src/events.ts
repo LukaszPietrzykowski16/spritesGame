@@ -23,7 +23,7 @@ export function events(){
         }
         if(event.code === 'KeyZ'){
           if(newCharacter.getJumpValue === 0){
-            newCharacter.update()
+            newCharacter.setFrameIndex = 0
             newCharacter.attack()
           }
          
