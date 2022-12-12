@@ -45,7 +45,7 @@ interface CharacterInterface {
   }
   
 export class Character implements CharacterInterface {
-  
+
     spritesheet: HTMLImageElement;
     x: number;
     y: number;
@@ -63,7 +63,11 @@ export class Character implements CharacterInterface {
       this.frameIndex = index
     }
 
-    private orientation: boolean = true;
+    get getXPosition(){
+      return this.x
+    }
+
+    public orientation: boolean = true;
   
     constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {
       this.spritesheet = spritesheet;
@@ -129,7 +133,7 @@ export class Character implements CharacterInterface {
      
     }
   
-    private jumpValue:number = 0
+    public jumpValue:number = 0
 
     get getJumpValue() {
       return this.jumpValue
@@ -137,6 +141,7 @@ export class Character implements CharacterInterface {
   
     private ATTACK_LENGTH = 16
     private attackValue:number = 0
+    private ATTACK_SPEED = 40
 
     attack(){
       this.cleaningUpCanvas()
@@ -154,10 +159,9 @@ export class Character implements CharacterInterface {
           clearInterval(attackInterval);
         }
         clearInterval(attackInterval);
-      }, 40)
+      }, this.ATTACK_SPEED)
 
       if(this.attackValue < this.ATTACK_LENGTH){
-        console.log(this.attackValue)
         attackInterval 
       } else {
         clearInterval(attackInterval);

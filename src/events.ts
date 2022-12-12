@@ -1,4 +1,4 @@
-import newCharacter from "./main";
+import {newCharacter, newFoe} from "./main";
 
 
 export function events(){
@@ -25,9 +25,26 @@ export function events(){
           if(newCharacter.getJumpValue === 0){
             newCharacter.setFrameIndex = 0
             newCharacter.attack()
+            if(Math.abs(newCharacter.getXPosition - newFoe.getXPosition) <= 30){
+              console.log('OUCH')
+            }
+            console.log(Math.abs(newCharacter.getXPosition - newFoe.getXPosition))
+            console.log(newCharacter.getXPosition, newFoe.getXPosition)
           }
          
         }
+
+        if(event.code === 'KeyD'){
+          newFoe.setValue = true
+          newFoe.update()
+          newFoe.test()
+        }
+        if(event.code === 'KeyA'){
+          newFoe.setValue = false
+          newFoe.update()
+          newFoe.test()
+        }
+
         // Alert the key name and key code on keydown
         
       }, false);
