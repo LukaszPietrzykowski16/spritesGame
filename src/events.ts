@@ -2,8 +2,13 @@ import {newCharacter, newFoe} from "./main";
 
 export function events(){
   const controller: any = {
-    ArrowRight: {pressed: false, func: newCharacterFunction},
-    d: {pressed: false, func: newFoeFunction}
+    ArrowRight: {pressed: false, func: newCharacterMoveRight},
+    ArrowLeft: {pressed: false, func: newCharacterMoveLeft},
+    ArrowUp: {pressed: false, func: newCharacterJump},
+    z: {pressed: false, func: newCharacterAttack},
+    d: {pressed: false, func: newFoeMoveRight},
+    a: {pressed: false, func: newFoeMoveLeft},
+    w: {pressed: false, func: newFoeJump},
   }
   
   document.addEventListener("keydown", (e) => {
@@ -16,7 +21,7 @@ export function events(){
     if(controller[e.key]){
       controller[e.key].pressed = false
     }
-    executeMoves()
+  
   })
   
   const executeMoves = () => {
@@ -27,18 +32,60 @@ export function events(){
 
  
   
-  function newCharacterFunction(){
+  function newCharacterMoveRight(){
     // ArrowRight
     newCharacter.setValue = true
     newCharacter.update()
     newCharacter.changePosition()
   }
+
+  function newCharacterMoveLeft(){
+    // ArrowLeft
+    newCharacter.setValue = false
+    newCharacter.update()
+    newCharacter.changePosition()
+  }
+
+  function newCharacterJump(){
+    if(newCharacter.getJumpValue === 0){
+      newCharacter.update()
+      newCharacter.jump()
+    }
+  }
   
-  function newFoeFunction(){
+  function newFoeMoveRight(){
     // ArrowRight
     newFoe.setValue = true
     newFoe.update()
     newFoe.test()
+  }
+
+  function newFoeMoveLeft(){
+    newFoe.setValue = false
+    newFoe.update()
+    newFoe.test()
+  }
+
+  function newFoeJump(){
+    if(newFoe.getJumpValue === 0){
+      newFoe.update()
+      newFoe.jump()
+    }
+  }
+
+  function newCharacterAttack(){
+
+    if(newCharacter.getJumpValue === 0){
+      newCharacter.setFrameIndex = 0
+      newCharacter.attack()
+    if(Math.abs(newCharacter.getXPosition - newFoe.getXPosition) <= 30){
+      console.log('OUCH')
+    }
+      console.log(Math.abs(newCharacter.getXPosition - newFoe.getXPosition))
+      console.log(newCharacter.getXPosition, newFoe.getXPosition)
+    }
+     
+ 
   }
 }
 

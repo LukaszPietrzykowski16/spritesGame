@@ -200,7 +200,7 @@ export class Character implements CharacterInterface {
         jumpInterval
       } else {
         clearInterval(jumpInterval);
-        this.jumpValue = 0
+        this.jumpValue = 1
         this.jumpFalling()
       }
 
