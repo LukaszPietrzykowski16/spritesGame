@@ -1,8 +1,52 @@
 import {newCharacter, newFoe} from "./main";
 
+export function events(){
+  const controller: any = {
+    ArrowRight: {pressed: false, func: newCharacterFunction},
+    d: {pressed: false, func: newFoeFunction}
+  }
+  
+  document.addEventListener("keydown", (e) => {
+    if(controller[e.key]){
+      controller[e.key].pressed = true
+    }
+    executeMoves()
+  })
+  document.addEventListener("keyup", (e) => {
+    if(controller[e.key]){
+      controller[e.key].pressed = false
+    }
+    executeMoves()
+  })
+  
+  const executeMoves = () => {
+    Object.keys(controller).forEach(key=> {
+      controller[key].pressed && controller[key].func()
+    })
+  }
+
+ 
+  
+  function newCharacterFunction(){
+    // ArrowRight
+    newCharacter.setValue = true
+    newCharacter.update()
+    newCharacter.changePosition()
+  }
+  
+  function newFoeFunction(){
+    // ArrowRight
+    newFoe.setValue = true
+    newFoe.update()
+    newFoe.test()
+  }
+}
+
+
+/*
 let keysPressed: any = {};
 export function events(){
-    document.addEventListener('keydown', (event) => {
+    window.addEventListener('keydown', (event) => {
       keysPressed[event.key] = true;
         if(event.key === 'ArrowRight' && keysPressed['ArrowRight']){
           newCharacter.setValue = true
@@ -59,3 +103,4 @@ export function events(){
 document.addEventListener('keyup', (event) => {
   delete keysPressed[event.key];
 });
+*/
