@@ -1,27 +1,27 @@
 import {newCharacter, newFoe} from "./main";
 
-
+let keysPressed: any = {};
 export function events(){
     document.addEventListener('keydown', (event) => {
-
-        if(event.code === 'ArrowRight'){
+      keysPressed[event.key] = true;
+        if(event.key === 'ArrowRight' && keysPressed['ArrowRight']){
           newCharacter.setValue = true
           newCharacter.update()
           newCharacter.changePosition()
         }
-        if(event.code === 'ArrowLeft'){
+        if(event.key === 'ArrowLeft' && keysPressed['ArrowLeft']){
           newCharacter.setValue = false
           newCharacter.update()
           newCharacter.changePosition()
         }
-        if(event.code === 'ArrowUp'){
+        if(event.key === 'ArrowUp' && keysPressed['ArrowUp']){
           if(newCharacter.getJumpValue === 0){
             newCharacter.update()
             newCharacter.jump()
           }
          
         }
-        if(event.code === 'KeyZ'){
+        if(event.key === 'z' && keysPressed['z']){
           if(newCharacter.getJumpValue === 0){
             newCharacter.setFrameIndex = 0
             newCharacter.attack()
@@ -33,20 +33,29 @@ export function events(){
           }
          
         }
-
-        if(event.code === 'KeyD'){
+        if(event.key === 'd' && keysPressed['d']){
           newFoe.setValue = true
           newFoe.update()
           newFoe.test()
         }
-        if(event.code === 'KeyA'){
+        if(event.key === 'a' && keysPressed['a']){
           newFoe.setValue = false
           newFoe.update()
           newFoe.test()
         }
+        if(event.key === 'w' && keysPressed['w']){
+          if(newFoe.getJumpValue === 0){
+            newFoe.update()
+            newFoe.jump()
+          }
+        }
 
-        // Alert the key name and key code on keydown
+     
+        // Alert the key name and key key on keydown
         
       }, false);
 }
 
+document.addEventListener('keyup', (event) => {
+  delete keysPressed[event.key];
+});

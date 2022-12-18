@@ -30,4 +30,6 @@ const newFoe = new Foe(imgRight, 50, 40, 960, 80, 90, 8)
 
 events()
 
+
+
 export {newCharacter, newFoe};
