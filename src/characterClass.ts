@@ -67,6 +67,10 @@ export class Character implements CharacterInterface {
       return this.x
     }
 
+    get getYPosition(){
+      return this.y
+    }
+
     public orientation: boolean = true;
   
     constructor(spritesheet: HTMLImageElement, x: number, y: number, width: number, height: number, timePerFrame: number, numberOfFrames: number) {

@@ -3,6 +3,7 @@ import { Character } from './characterClass'
 import walk from './sprites/walk.png'
 import { events } from './events';
 import  Foe from './foeClass';
+import { redCircle } from './damageClass';
 
 const imgRight = new Image();        
 imgRight.src = walk;    
@@ -27,9 +28,10 @@ window.requestAnimationFrame(loop)
 
 const newCharacter = new Character(imgRight, 0, 40, 960, 80, 90, 8)
 const newFoe = new Foe(imgRight, 50, 40, 960, 80, 90, 8)
+const newCricle = new redCircle()
 
 events()
 
 
 
-export {newCharacter, newFoe};
+export {newCharacter, newFoe, newCricle};
