@@ -89,7 +89,7 @@ export class Character implements CharacterInterface {
 
     // we can do this in better way? 
     lastUpdate = Date.now();
-  
+
       //to update
     update() {
           if(Date.now() - this.lastUpdate >= this.timePerFrame) {

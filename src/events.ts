@@ -1,6 +1,7 @@
 import {newCharacter, newFoe} from "./main";
 import { newCricle } from "./main";
 
+
 export function events(){
   const controller: any = {
     ArrowRight: {pressed: false, func: newCharacterMoveRight},
@@ -80,6 +81,7 @@ export function events(){
       newCharacter.setFrameIndex = 0
       newCharacter.attack()
     if(Math.abs(newCharacter.getXPosition - newFoe.getXPosition) <= 30){
+      
       for(let i=0; i<10; i++){
         newCricle.drawCircle(newFoe.getXPosition, newFoe.getYPosition)
       }
