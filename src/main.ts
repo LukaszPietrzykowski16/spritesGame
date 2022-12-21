@@ -14,6 +14,7 @@ imgRight.src = walk;
 function update() {
   newCharacter.draw()
   newFoe.draw()
+  console.log(newGameState.getCharacterPoints, newGameState.getFoePoints)
 }
 
 

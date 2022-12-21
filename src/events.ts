@@ -1,4 +1,4 @@
-import {newCharacter, newFoe} from "./main";
+import {newCharacter, newFoe, newGameState} from "./main";
 import { newCricle } from "./main";
 
 
@@ -81,7 +81,7 @@ export function events(){
       newCharacter.setFrameIndex = 0
       newCharacter.attack()
     if(Math.abs(newCharacter.getXPosition - newFoe.getXPosition) <= 30){
-      
+      newGameState.characterPoints()
       for(let i=0; i<10; i++){
         newCricle.drawCircle(newFoe.getXPosition, newFoe.getYPosition)
       }

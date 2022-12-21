@@ -11,7 +11,7 @@ export class gameState {
         return this.foe
     }
 
-    CharacterPoints():void{
+    characterPoints():void{
         this.character = this.character - 1
     }
 
