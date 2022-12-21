@@ -81,7 +81,7 @@ export function events(){
       newCharacter.attack()
     if(Math.abs(newCharacter.getXPosition - newFoe.getXPosition) <= 30){
       for(let i=0; i<10; i++){
-        newCricle.drawCircle(newFoe.getXPosition, newFoe.getYPosition, i)
+        newCricle.drawCircle(newFoe.getXPosition, newFoe.getYPosition)
       }
       
 
