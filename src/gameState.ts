@@ -1,7 +1,7 @@
 
 export class gameState {
-    private character = 3;
-    private foe = 3;
+    private character:number = 3;
+    private foe:number = 3;
 
     get getCharacterPoints(){
         return this.character
@@ -15,7 +15,7 @@ export class gameState {
         this.character = this.character - 1
     }
 
-    FoePoints():void{
+    foePoints():void{
         this.foe = this.foe - 1
     }
 

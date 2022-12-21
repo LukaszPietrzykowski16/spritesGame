@@ -14,14 +14,21 @@ imgRight.src = walk;
 function update() {
   newCharacter.draw()
   newFoe.draw()
-  console.log(newGameState.getCharacterPoints, newGameState.getFoePoints)
+  
 }
 
 
 function loop() {
   update()
+  if (newGameState.getCharacterPoints === 0 || newGameState.getFoePoints === 0){
+    console.log(`game state: ${newGameState.getCharacterPoints}, ${newGameState.getFoePoints}`)
+    // remove add event listner here
+  } else {
+      window.requestAnimationFrame(loop)
+      
+  }
+ 
 
-  window.requestAnimationFrame(loop)
 
 }
 
@@ -34,7 +41,5 @@ const newCricle = new redCircle()
 const newGameState = new gameState()
 
 events()
-
-
 
 export {newCharacter, newFoe, newCricle, newGameState};

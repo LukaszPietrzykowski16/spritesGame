@@ -7,10 +7,11 @@ export function events(){
     ArrowRight: {pressed: false, func: newCharacterMoveRight},
     ArrowLeft: {pressed: false, func: newCharacterMoveLeft},
     ArrowUp: {pressed: false, func: newCharacterJump},
-    z: {pressed: false, func: newCharacterAttack},
+    m: {pressed: false, func: newCharacterAttack},
     d: {pressed: false, func: newFoeMoveRight},
     a: {pressed: false, func: newFoeMoveLeft},
     w: {pressed: false, func: newFoeJump},
+    z: {pressed: false, func: newFoeAttack}
   }
   
   document.addEventListener("keydown", (e) => {
@@ -85,79 +86,26 @@ export function events(){
       for(let i=0; i<10; i++){
         newCricle.drawCircle(newFoe.getXPosition, newFoe.getYPosition)
       }
-      
-
-
     }
-    /*
-      console.log(Math.abs(newCharacter.getXPosition - newFoe.getXPosition))
-      console.log(newCharacter.getXPosition, newFoe.getXPosition) 
-      */
     }
-     
- 
   }
+
+  function newFoeAttack(){
+
+    if(newFoe.getJumpValue === 0){
+      newFoe.setFrameIndex = 0
+      newFoe.attack()
+      // must do blocket of spaming attacks
+    if(Math.abs(newFoe.getXPosition - newFoe.getXPosition) <= 30){
+      newGameState.foePoints()
+      for(let i=0; i<10; i++){
+        newCricle.drawCircle(newCharacter.getXPosition, newCharacter.getYPosition)
+      }
+    }
+    }
+  }
+
+
+  
 }
 
-
-/*
-let keysPressed: any = {};
-export function events(){
-    window.addEventListener('keydown', (event) => {
-      keysPressed[event.key] = true;
-        if(event.key === 'ArrowRight' && keysPressed['ArrowRight']){
-          newCharacter.setValue = true
-          newCharacter.update()
-          newCharacter.changePosition()
-        }
-        if(event.key === 'ArrowLeft' && keysPressed['ArrowLeft']){
-          newCharacter.setValue = false
-          newCharacter.update()
-          newCharacter.changePosition()
-        }
-        if(event.key === 'ArrowUp' && keysPressed['ArrowUp']){
-          if(newCharacter.getJumpValue === 0){
-            newCharacter.update()
-            newCharacter.jump()
-          }
-         
-        }
-        if(event.key === 'z' && keysPressed['z']){
-          if(newCharacter.getJumpValue === 0){
-            newCharacter.setFrameIndex = 0
-            newCharacter.attack()
-            if(Math.abs(newCharacter.getXPosition - newFoe.getXPosition) <= 30){
-              console.log('OUCH')
-            }
-            console.log(Math.abs(newCharacter.getXPosition - newFoe.getXPosition))
-            console.log(newCharacter.getXPosition, newFoe.getXPosition)
-          }
-         
-        }
-        if(event.key === 'd' && keysPressed['d']){
-          newFoe.setValue = true
-          newFoe.update()
-          newFoe.test()
-        }
-        if(event.key === 'a' && keysPressed['a']){
-          newFoe.setValue = false
-          newFoe.update()
-          newFoe.test()
-        }
-        if(event.key === 'w' && keysPressed['w']){
-          if(newFoe.getJumpValue === 0){
-            newFoe.update()
-            newFoe.jump()
-          }
-        }
-
-     
-        // Alert the key name and key key on keydown
-        
-      }, false);
-}
-
-document.addEventListener('keyup', (event) => {
-  delete keysPressed[event.key];
-});
-*/
