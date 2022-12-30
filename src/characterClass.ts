@@ -55,7 +55,7 @@ export class Character implements CharacterInterface {
     numberOfFrames: number;
   
     private JUMP_HEIGHT:number = 16
-    private JUMP_SPEED:number = 50
+    private JUMP_SPEED:number = 20
   
     private frameIndex:number = 0;
 
@@ -154,7 +154,7 @@ export class Character implements CharacterInterface {
       } else {
         this.spritesheet = imgAttackBackwards
       }
-      
+     
       const attackInterval = setInterval(() => {
         this.attackValue++ 
         this.update()
@@ -167,6 +167,7 @@ export class Character implements CharacterInterface {
 
       if(this.attackValue < this.ATTACK_LENGTH){
         attackInterval 
+        
       } else {
         clearInterval(attackInterval);
         this.attackValue = 0

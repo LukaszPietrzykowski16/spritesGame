@@ -96,7 +96,7 @@ export function events(){
       newFoe.setFrameIndex = 0
       newFoe.attack()
       // must do blocket of spaming attacks
-    if(Math.abs(newFoe.getXPosition - newFoe.getXPosition) <= 30){
+    if(Math.abs(newCharacter.getXPosition - newCharacter.getXPosition) <= 30){
       newGameState.foePoints()
       for(let i=0; i<10; i++){
         newCricle.drawCircle(newCharacter.getXPosition, newCharacter.getYPosition)
