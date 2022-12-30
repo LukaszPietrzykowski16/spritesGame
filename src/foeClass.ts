@@ -11,7 +11,7 @@ imgLeft.src = walkBackwards;
 export default class Foe extends Character{
     
     
-    test(){
+    facingDetection(){
         this.cleaningUpCanvas()
         if(this.jumpValue === 0){
           if(this.orientation === true){
