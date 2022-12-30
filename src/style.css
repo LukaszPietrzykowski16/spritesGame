@@ -36,3 +36,39 @@ https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/889c80d1-6647-4230-9b5
   background: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/889c80d1-6647-4230-9b52-5470bf9295e9/d7s4uas-103c2058-51f3-4f1c-9f1b-a1f009aa8081.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzg4OWM4MGQxLTY2NDctNDIzMC05YjUyLTU0NzBiZjkyOTVlOVwvZDdzNHVhcy0xMDNjMjA1OC01MWYzLTRmMWMtOWYxYi1hMWYwMDlhYTgwODEucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.XYY4vrCvJ-jwbI3SpELl-D_qjK8eJZbWT3D5LByLpVQ');
   background-size: 100% 100%;
 }
+
+.game-start {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  height: 40vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: .8em 1.2em;
+  color: white;
+  background-color: rgb(87 79 103);
+  
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.game-start-details{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.game-start-foe, .game-start-character {
+  display: flex;
+  width: 45%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
