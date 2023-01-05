@@ -6,6 +6,7 @@ import  Foe from './foeClass';
 import { redCircle } from './damageClass';
 import { gameState } from "./gameState";
 import { displayModal } from './modal'
+import { gameEndModal } from './modal'
 
 const imgRight = new Image();        
 imgRight.src = walk;    
@@ -22,7 +23,7 @@ function update() {
 function loop() {
   update()
   if (newGameState.getCharacterPoints === 0 || newGameState.getFoePoints === 0){
-    console.log(`game state: ${newGameState.getCharacterPoints}, ${newGameState.getFoePoints}`)
+    gameEndModal()
     // remove add event listner here
   } else {
       window.requestAnimationFrame(loop)
