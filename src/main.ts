@@ -5,6 +5,7 @@ import { events } from './events';
 import  Foe from './foeClass';
 import { redCircle } from './damageClass';
 import { gameState } from "./gameState";
+import { displayModal } from './modal'
 
 const imgRight = new Image();        
 imgRight.src = walk;    
@@ -41,5 +42,6 @@ const newCricle = new redCircle()
 const newGameState = new gameState()
 
 events()
+displayModal()
 
 export {newCharacter, newFoe, newCricle, newGameState};
