@@ -27,7 +27,6 @@ const gameModalObject = {
         </div> `,
     startButton: `<button> Start! </button>`,
     endButton: `<button onClick="window.location.reload()"> Play Again! </button>`,
-    endHeader: `<div> Player x won </div>`
 }
 
 
@@ -50,17 +49,27 @@ export function displayModal(){
 }
 
 
-export function gameEndModal(){
+export function gameEndModal(characterPoints: number, foePoints: number){
 
     const modal: HTMLElement | null = document.querySelector('.game-start--hide')
     
     if(modal !== null){
         modal.classList.add('game-start')
         modal.classList.remove('game-start--hide')  
-        modal.innerHTML = `
-        ${gameModalObject.endHeader}
-        ${gameModalObject.endButton}
-        `
+        if(characterPoints > foePoints){
+          modal.innerHTML = `
+          Foe won
+          *foe img*
+          ${gameModalObject.endButton}
+          `
+        } else {
+          modal.innerHTML = `
+          Character won
+          *character img*
+          ${gameModalObject.endButton}
+          `
+        }
+       
     };
     
 }

@@ -23,7 +23,7 @@ function update() {
 function loop() {
   update()
   if (newGameState.getCharacterPoints === 0 || newGameState.getFoePoints === 0){
-    gameEndModal()
+    gameEndModal(newGameState.getCharacterPoints,  newGameState.getFoePoints)
     // remove add event listner here
   } else {
       window.requestAnimationFrame(loop)
